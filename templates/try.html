@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+    <style>
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 8px;
+        }
+
+      /* Styling for the to-do list items */
+      .todo-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      /* Styling for the delete button */
+      .todo-item button {
+        padding: 8px;
+        border: none;
+        background-color: #ff0000;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Center align the to-do list */
+      .todo-list {
+        display: flex;
+        justify-content: center;
+      }
+      /* Add some basic styling to the form */
+    .add-todo-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    /* Style the text input */
+    #todo-text {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-right: 8px;
+      flex-grow: 1; /* allow the input to take up remaining space */
+    }
+
+    /* Style the button */
+    .add-todo-form button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#">Home</a> |
+        <a href="#">Delete Page</a>
+      </nav>
+    </header>
+    <form id="add-todo-form" class="add-todo-form">
+      <input type="text" name="" id="todo-text">
+      <button>Add</button>
+    </form>
+    <div class="todo-list">
+      <ul id="todo-list">
+        <!-- The to-do items will be added here dynamically -->
+      </ul>
+    </div>
+
+    <script>
+      // An array to hold the to-do items
+      let todoItems = [];
+
+      // Add a new to-do item
+      function addTodo(text) {
+        let todo = {
+          id: Date.now(),
+          text: text,
+        };
+        todoItems.push(todo);
+        renderTodoList();
+      }
+
+      // Delete a to-do item
+      function deleteTodo(id) {
+        todoItems = todoItems.filter((todo) => todo.id !== id);
+        renderTodoList();
+      }
+
+      // Render the to-do list
+      function renderTodoList() {
+        let todoList = document.getElementById("todo-list");
+        todoList.innerHTML = "";
+        todoItems.forEach((todo) => {
+          let li = document.createElement("li");
+          li.classList.add("todo-item");
+          li.innerHTML = `
+            ${todo.text}
+            <button onclick="deleteTodo(${todo.id})">Delete</button>
+          `;
+          todoList.appendChild(li);
+        });
+      }
+
+      // Add some test data
+      addTodo("Learn HTML");
+      addTodo("Learn CSS");
+      addTodo("Learn JavaScript");
+    </script>
+  </body>
+</html>

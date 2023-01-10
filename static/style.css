@@ -1,0 +1,65 @@
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0 8px;
+    }
+
+  /* Styling for the to-do list items */
+  .todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  /* Styling for the delete button */
+  .todo-item button {
+    padding: 8px;
+    border: none;
+    background-color: #ff0000;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Center align the to-do list */
+  .todo-list {
+    display: flex;
+    justify-content: center;
+  }
+  /* Add some basic styling to the form */
+.add-todo-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the text input */
+input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 8px;
+  flex-grow: 1; /* allow the input to take up remaining space */
+}
+
+/* Style the button */
+.add-todo-form button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
