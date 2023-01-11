@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form action="" method="POST" id="post-form" class="add-todo-form">
+  {% csrf_token %}
+  <input type="text" name="todo" id="todo" placeholder="Todo" required>
+  <button type="submit">Add</button>
+</form>
+<div class="todo-list">
+  <ul id="todo-list">
+    {% for todo in todos reversed %}
+    <li class="todo-item">{{todo.todo}}     <button><a style="text-decoration: none; color: white;" href="{% url 'delete' todo.uid %}">Delete</a></button></li>
+    {% endfor %}
+  </ul>
+</div>
+
+    <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>	
+    <script>
+        $(document).on('submit', '#post-form',function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'{% url "index" %}',
+                data:{
+                    todo:$('#todo').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success:function(json){
+                    document.getElementById("post-form").reset();
+                    $("#todo-list").prepend(
+                        '<li class="todo-item">' + json.todo + '<button>' +' <a style="text-decoration: none; color: white;" href="/delete/'+ json.uid +'">'+'Delete</a></button>'+'</li>'
+                    )
+                },
+                error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+        });
+    </script>
+{% endblock %}
